@@ -1,29 +1,56 @@
-Suits Bae Back End
+# Welcome to Suits Bae. Backend Doc
 
-#Docs
+The complete documentation for Suits Bae. Backend
+
+# Docs
+
 List of APIs Used
 
-AUTHENTICATIONS
-(/api/users)
+## Authentication
+
+#### /api/users
+
 Authentication module consists of APIs for Auth purposes.
 
-PORTFOLIO
-(/api/portfolio)
+//@route GET api/users/test
+//@desc Test users route
+//@access Public
 
-AVATAR
-(/api/portfolio/avatar)
+//@route POST api/users/register
+//@desc Register new user
+//@access Public
+//@params name, email , password
 
-CONTACT
-(/api/portfolio/contact)
+## Portfolio
 
-PROFILE
-(/api/portfolio/profile)
+#### /api/portfolio
 
-HANDLE
-(/api/portfolio/handle)
+### Avatar
 
-#Usage
+#### /api/portfolio/avatar
 
-(c) 2019 Suits Bae.
+### Contact
 
-MIT License
+#### /api/portfolio/contact
+
+### Profile
+
+#### /api/portfolio/profile
+
+### Handle
+
+#### /api/portfolio/handle
+
+# Usage
+
+### Todos
+
+- Email Module
+- Forgot password
+- Activate Account
+
+## License
+
+MIT
+
+### (c) 2019 Suits Bae.
