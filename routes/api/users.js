@@ -50,7 +50,23 @@ router.post("/register", (req, res) => {
           newUser
             .save()
             .then(user => {
-              res.json(user);
+              console.log(user);
+              // Genrate a token and send back the token like login
+              const payload = {
+                name: user.name,
+                id: user._id,
+                isverified: user.isverified
+              };
+              // Create JWT payload
+              //Sign Token
+              jwt.sign(
+                payload,
+                keys.secretOrKey,
+                { expiresIn: 86400 },
+                (err, token) => {
+                  res.json({ success: true, token: "Bearer " + token });
+                }
+              );
             })
             .catch(err => console.log(err));
         });
@@ -89,9 +105,14 @@ router.post("/login", (req, res) => {
           isverified: user.isverified
         }; // Create JWT payload
         //Sign Token
-        jwt.sign(payload, keys.secretOrKey, {}, (err, token) => {
-          res.json({ success: true, token: "Bearer " + token });
-        });
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 1000000 },
+          (err, token) => {
+            res.json({ success: true, token: "Bearer " + token });
+          }
+        );
       } else {
         errors.password = "Password Incorrect!";
         return res.status(400).json(errors);
