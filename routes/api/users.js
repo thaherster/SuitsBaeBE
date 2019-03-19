@@ -9,9 +9,11 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const validateChangePassInput = require("../../validation/changepass");
+const validateSubscriberInput = require("../../validation/subscribe");
 
 //load User model
 const User = require("../../models/User");
+const Subscriber = require("../../models/Subscriber");
 
 //@route GET api/users/test
 //@desc Test users route
@@ -191,5 +193,27 @@ router.post(
     });
   }
 );
+//@route POST api/users/subscribe
+//@desc Subscruber email id
+//@access Public
+router.post("/subscribe", (req, res) => {
+  const { errors, isValid } = validateSubscriberInput(req.body);
+  //Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+  //Create a new user
+  const sub = new Subscriber({
+    email: req.body.email
+  });
+  sub
+    .save()
+    .then(emailer => {
+      res.json({ success: true, emailer: emailer });
+    })
+    .catch(err => {
+      res.json({ success: false, emailer: {} });
+    });
+});
 
 module.exports = router;
